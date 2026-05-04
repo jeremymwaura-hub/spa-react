@@ -1,0 +1,40 @@
+.project-list-section { display: flex; flex-direction: column; gap: 1.25rem; }
+
+.project-list-header { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.project-list-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.project-list-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--c-ink);
+}
+
+.project-count {
+  font-size: 13px;
+  color: var(--c-ink-faint);
+  background: var(--c-cream-mid);
+  border-radius: 20px;
+  padding: 2px 10px;
+}
+
+.project-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.project-empty {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--c-ink-faint);
+  font-size: 15px;
+  background: var(--c-white);
+  border-radius: var(--radius-md);
+  border: 1.5px dashed var(--c-cream-dark);
+}

@@ -1,0 +1,68 @@
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ─── Design tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --c-ink:        #1a1714;
+  --c-ink-muted:  #6b6560;
+  --c-ink-faint:  #a09b96;
+  --c-cream:      #f8f5f0;
+  --c-cream-mid:  #efe9e1;
+  --c-cream-dark: #e2d9ce;
+  --c-accent:     #c2622a;
+  --c-accent-lt:  #f5ede5;
+  --c-white:      #ffffff;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  18px;
+
+  --shadow-card: 0 1px 3px rgba(26,23,20,0.07), 0 4px 16px rgba(26,23,20,0.05);
+  --shadow-form: 0 2px 8px rgba(26,23,20,0.08), 0 12px 40px rgba(26,23,20,0.06);
+}
+
+/* ─── Reset & base ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--c-cream);
+  color: var(--c-ink);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── App shell ──────────────────────────────────────────────────────────────── */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 820px) {
+  .main-content {
+    grid-template-columns: 1fr;
+    padding: 1.5rem 1rem 4rem;
+  }
+}
+
+/* ─── Utility ────────────────────────────────────────────────────────────────── */
+ul { list-style: none; }
+button { cursor: pointer; font-family: var(--font-body); }
+input, textarea { font-family: var(--font-body); }

@@ -1,122 +1,73 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React, { useState } from 'react';
+import Header from './components/Header';
+import AddProjectForm from './components/AddProjectForm';
+import ProjectList from './components/ProjectList';
+import './styles/global.css';
+
+const INITIAL_PROJECTS = [
+  {
+    id: 1,
+    title: 'Brand Identity — Aurum Coffee',
+    description: 'Full visual identity system for a specialty coffee roaster. Included logomark, packaging design, and a brand style guide spanning typography, color, and photography direction.',
+    tags: ['Branding', 'Packaging'],
+    year: '2024',
+  },
+  {
+    id: 2,
+    title: 'Editorial Campaign — Vena Magazine',
+    description: 'Art direction and layout design for a six-page fashion editorial. Collaborated with photographers and stylists to produce a cohesive visual narrative around the theme of movement.',
+    tags: ['Editorial', 'Art Direction'],
+    year: '2024',
+  },
+  {
+    id: 3,
+    title: 'Website Redesign — Kestrel Architecture',
+    description: 'End-to-end redesign of a boutique architecture studio website. Focused on showcasing project photography with a minimal, grid-based layout that lets the work speak for itself.',
+    tags: ['Web Design', 'UI/UX'],
+    year: '2023',
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [projects, setProjects] = useState(INITIAL_PROJECTS);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleAddProject = (newProject) => {
+    setProjects((prev) => [{ ...newProject, id: Date.now() }, ...prev]);
+  };
+
+  const handleDeleteProject = (id) => {
+    setProjects((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  const filteredProjects = projects.filter((project) => {
+    const q = searchQuery.toLowerCase();
+    return (
+      project.title.toLowerCase().includes(q) ||
+      project.description.toLowerCase().includes(q) ||
+      project.tags.some((tag) => tag.toLowerCase().includes(q))
+    );
+  });
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    <div className="app">
+      <Header />
+      <main className="main-content">
+        <section className="form-section">
+          <AddProjectForm onAdd={handleAddProject} />
+        </section>
+        <section className="list-section">
+          <ProjectList
+            projects={filteredProjects}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            onDelete={handleDeleteProject}
+            totalCount={projects.length}
+          />
+        </section>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
