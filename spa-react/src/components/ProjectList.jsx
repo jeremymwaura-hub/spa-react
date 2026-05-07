@@ -1,6 +1,6 @@
 import React from 'react';
-import ProjectCard from './ProjectCard';
-import SearchBar from './SearchBar';
+import ProjectCard from './ProjectCard.jsx';
+import SearchBar from './SearchBar.jsx';
 import '../styles/ProjectList.css';
 
 /* ProjectList — search bar + grid of ProjectCard components */

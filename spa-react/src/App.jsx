@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Header from './components/Header';
-import AddProjectForm from './components/AddProjectForm';
-import ProjectList from './components/ProjectList';
+import Header from './components/Header.jsx';
+import AddProjectForm from './components/AddProjectForm.jsx';
+import ProjectList from './components/ProjectList.jsx';
 import './styles/global.css';
 
 const INITIAL_PROJECTS = [
