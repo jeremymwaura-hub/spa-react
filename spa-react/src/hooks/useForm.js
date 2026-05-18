@@ -1,11 +1,8 @@
 import { useState } from 'react';
 
 /**
- * useForm — lightweight controlled-form hook.
- * Manages field values, handles change events, and exposes a reset helper.
- *
- * @param {Object} initialValues - key/value pairs for each field
- * @returns {{ values, handleChange, resetForm }}
+ * useForm - small helper hook for keeping form fields in state.
+ * I used this for practice with controlled form inputs.
  */
 function useForm(initialValues) {
   const [values, setValues] = useState(initialValues);

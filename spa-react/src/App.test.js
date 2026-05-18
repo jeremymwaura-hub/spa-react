@@ -1,52 +1,61 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import App from './App';
+import { render, screen, fireEvent } from "@testing-library/react";
+import App from "./App";
 
-describe('App — integration', () => {
-  test('renders the page header', () => {
-    render(<App />);
-    expect(screen.getByText('FOLIO')).toBeInTheDocument();
+// simple tests for app functionality by student practice
+test("renders the app heading", () => {
+  render(<App />);
+  const heading = screen.getByText(/Moringa Student Project Showcase/i);
+  expect(heading).toBeInTheDocument();
+});
+
+test("renders the initial projects", () => {
+  render(<App />);
+  expect(screen.getByText(/Todo App/i)).toBeInTheDocument();
+  expect(screen.getByText(/Weather App/i)).toBeInTheDocument();
+});
+
+test("can add a new project", () => {
+  render(<App />);
+
+  // type in the title
+  fireEvent.change(screen.getByPlaceholderText(/Enter project title/i), {
+    target: { value: "My New Project" },
   });
 
-  test('renders the initial seed projects', () => {
-    render(<App />);
-    expect(screen.getByText(/Aurum Coffee/i)).toBeInTheDocument();
-    expect(screen.getByText(/Vena Magazine/i)).toBeInTheDocument();
-    expect(screen.getByText(/Kestrel Architecture/i)).toBeInTheDocument();
+  // type in the description
+  fireEvent.change(screen.getByPlaceholderText(/Enter project description/i), {
+    target: { value: "This is my new project" },
   });
 
-  test('adds a new project via the form', () => {
-    render(<App />);
-    fireEvent.change(screen.getByLabelText(/project title/i), {
-      target: { value: 'Test Project' },
-    });
-    fireEvent.change(screen.getByLabelText(/description/i), {
-      target: { value: 'A test project description.' },
-    });
-    fireEvent.click(screen.getByRole('button', { name: /add project/i }));
-    expect(screen.getByText('Test Project')).toBeInTheDocument();
+  // click the add button
+  fireEvent.click(screen.getByText("Add"));
+
+  // check that it shows up
+  expect(screen.getByText("My New Project")).toBeInTheDocument();
+});
+
+test("search filters projects", () => {
+  render(<App />);
+
+  fireEvent.change(screen.getByPlaceholderText(/Search Projects/i), {
+    target: { value: "Todo" },
   });
 
-  test('shows validation errors on empty submit', () => {
-    render(<App />);
-    fireEvent.click(screen.getByRole('button', { name: /add project/i }));
-    expect(screen.getByText(/title is required/i)).toBeInTheDocument();
-    expect(screen.getByText(/description is required/i)).toBeInTheDocument();
-  });
+  expect(screen.getByText(/Todo App/i)).toBeInTheDocument();
+  expect(screen.queryByText(/Weather App/i)).not.toBeInTheDocument();
+});
 
-  test('filters projects via search', () => {
-    render(<App />);
-    const searchInput = screen.getByPlaceholderText(/search by title/i);
-    fireEvent.change(searchInput, { target: { value: 'Aurum' } });
-    expect(screen.getByText(/Aurum Coffee/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Vena Magazine/i)).not.toBeInTheDocument();
-  });
+test("can delete a project", () => {
+  render(<App />);
 
-  test('shows empty state when no results match', () => {
-    render(<App />);
-    fireEvent.change(screen.getByPlaceholderText(/search by title/i), {
-      target: { value: 'zzznomatch' },
-    });
-    expect(screen.getByText(/no projects match/i)).toBeInTheDocument();
-  });
+  // there should be delete buttons
+  const deleteButtons = screen.getAllByText("Delete");
+  expect(deleteButtons.length).toBeGreaterThan(0);
+
+  // click the first delete button
+  fireEvent.click(deleteButtons[0]);
+
+  // there should be one less project now
+  const remainingDeleteButtons = screen.getAllByText("Delete");
+  expect(remainingDeleteButtons.length).toBe(deleteButtons.length - 1);
 });

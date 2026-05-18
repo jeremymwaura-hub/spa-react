@@ -1,18 +1,37 @@
-# React + Vite
+# Moringa School Project Showcase
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple student project built during Moringa School training. It shows a list of personal projects, lets the user add new projects, search through them, and delete entries.
 
-Currently, two official plugins are available:
+## What this project does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Displays a list of projects with titles and descriptions
+- Has a search box to filter projects by title
+- Includes a form to add new projects
+- Allows deleting a project from the list
 
-## React Compiler
+## Built with
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- React
+- Vite
+- JavaScript
+- CSS
 
-Note: This will impact Vite dev & build performances.
+## How to run
 
-## Expanding the ESLint configuration
+1. Install dependencies:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+```
+
+2. Start the dev server:
+
+```bash
+npm run dev
+```
+
+3. Open the app in your browser using the link shown by Vite.
+
+## Notes
+
+This app was made as part of my Moringa School practice work. It is a small learning project, not a finished production app.

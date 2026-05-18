@@ -1,71 +1,62 @@
-import React, { useState } from 'react';
-import Header from './components/Header.jsx';
-import AddProjectForm from './components/AddProjectForm.jsx';
-import ProjectList from './components/ProjectList.jsx';
-import './styles/global.css';
+import { useState } from "react";
+import AddProjectForm from "./components/AddProjectForm";
+import ProjectList from "./components/ProjectList";
+import "./App.css";
 
-const INITIAL_PROJECTS = [
+// my projects array - I am using this for the initial app state
+const initialProjects = [
   {
     id: 1,
-    title: 'Brand Identity — Aurum Coffee',
-    description: 'Full visual identity system for a specialty coffee roaster. Included logomark, packaging design, and a brand style guide spanning typography, color, and photography direction.',
-    tags: ['Branding', 'Packaging'],
-    year: '2024',
+    title: "Personal Portfolio Website",
+    description: "A website I made to showcase my work. Used HTML, CSS and a bit of JavaScript. It was my first real project and I learned a lot about flexbox.",
   },
   {
     id: 2,
-    title: 'Editorial Campaign — Vena Magazine',
-    description: 'Art direction and layout design for a six-page fashion editorial. Collaborated with photographers and stylists to produce a cohesive visual narrative around the theme of movement.',
-    tags: ['Editorial', 'Art Direction'],
-    year: '2024',
+    title: "Todo App",
+    description: "A simple todo list app where you can add and delete tasks. I built this when we were learning about state in React. It was challenging at first but I got it working!",
   },
   {
     id: 3,
-    title: 'Website Redesign — Kestrel Architecture',
-    description: 'End-to-end redesign of a boutique architecture studio website. Focused on showcasing project photography with a minimal, grid-based layout that lets the work speak for itself.',
-    tags: ['Web Design', 'UI/UX'],
-    year: '2023',
+    title: "Weather App",
+    description: "Fetches weather data from an API and displays it on the page. I used the OpenWeather API. This one taught me a lot about useEffect and fetch.",
   },
 ];
 
 function App() {
-  const [projects, setProjects] = useState(INITIAL_PROJECTS);
-  const [searchQuery, setSearchQuery] = useState('');
+  // state for the projects list
+  const [projects, setProjects] = useState(initialProjects);
 
-  const handleAddProject = (newProject) => {
-    setProjects((prev) => [{ ...newProject, id: Date.now() }, ...prev]);
-  };
+  // state for search
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const handleDeleteProject = (id) => {
-    setProjects((prev) => prev.filter((p) => p.id !== id));
-  };
+  // this function adds a new project to the list
+  function handleAddProject(newProject) {
+    setProjects([...projects, newProject]);
+  }
 
+  // this function deletes a project
+  function handleDelete(id) {
+    const updatedProjects = projects.filter((project) => project.id !== id);
+    setProjects(updatedProjects);
+  }
+
+  // filter projects based on searchTerm
   const filteredProjects = projects.filter((project) => {
-    const q = searchQuery.toLowerCase();
-    return (
-      project.title.toLowerCase().includes(q) ||
-      project.description.toLowerCase().includes(q) ||
-      project.tags.some((tag) => tag.toLowerCase().includes(q))
-    );
+    return project.title.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
   return (
-    <div className="app">
-      <Header />
-      <main className="main-content">
-        <section className="form-section">
-          <AddProjectForm onAdd={handleAddProject} />
-        </section>
-        <section className="list-section">
-          <ProjectList
-            projects={filteredProjects}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            onDelete={handleDeleteProject}
-            totalCount={projects.length}
-          />
-        </section>
-      </main>
+    <div className="App">
+      <h1>Moringa Student Project Showcase</h1>
+
+      <AddProjectForm onAddProject={handleAddProject} />
+
+      <ProjectList
+        projects={filteredProjects}
+        onDelete={handleDelete}
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+      />
     </div>
   );
 }
