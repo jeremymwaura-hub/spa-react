@@ -1,5 +1,5 @@
 import ProjectCard from "./ProjectCard";
-import "./ProjectList.css";
+import "../styles/ProjectList.css";
 
 // this component shows all the projects
 // It also has a search box so I can filter by title

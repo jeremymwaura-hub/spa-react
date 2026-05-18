@@ -1,4 +1,4 @@
-import "./ProjectCard.css";
+import "../styles/ProjectCard.css";
 
 // this is the card for each project
 // I kept it simple so the content is easy to read

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./AddProjectForm.css";
+import "../styles/AddProjectForm.css";
 
 // this component is the form for adding a new project
 // I wrote this part while practicing React forms at Moringa
